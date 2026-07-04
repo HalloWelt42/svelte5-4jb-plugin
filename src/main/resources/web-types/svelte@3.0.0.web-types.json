@@ -1,0 +1,33 @@
+{
+  "$schema": "../../../community/platform/polySymbols/web-types-gen/resources/web-types.json",
+  "name": "svelte",
+  "version": "3.0.0",
+  "framework": "svelte",
+  "framework-config": {
+    "enable-when": {
+      "node-packages": [
+        "svelte"
+      ],
+      "ide-libraries": [
+        "svelte"
+      ]
+    }
+  },
+  "contributions": {
+    "js": {
+      "additional-root-directories": [
+        {
+          "name": "routes"
+        }
+      ],
+      "additional-leaf-files": [
+        {
+          "name": "+page"
+        },
+        {
+          "name": "+page.server"
+        }
+      ]
+    }
+  }
+}

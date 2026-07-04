@@ -1,0 +1,22 @@
+# IDEs and editors
+/.idea
+.idea/*
+.project
+.classpath
+*.launch
+.settings/
+*.sublime-workspace
+
+# Build output
+out
+.gradle
+build
+
+# IntelliJ Platform Gradle Plugin working dir (sandbox, caches, resolved platform)
+.intellijPlatform
+
+# Vendored Node modules for the bundled language server.
+# Reproducible from language-server/package.json + package-lock.json via `npm ci`.
+/language-server/node_modules
+
+.DS_Store

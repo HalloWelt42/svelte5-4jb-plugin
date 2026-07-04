@@ -1,0 +1,6 @@
+# Editor configuration, see https://editorconfig.org
+[*]
+end_of_line = lf
+indent_style = space
+indent_size = 2
+charset = utf-8

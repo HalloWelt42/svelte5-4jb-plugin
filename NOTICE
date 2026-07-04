@@ -1,0 +1,13 @@
+svelte5-4jb-plugin
+==================
+
+Native Svelte-5-Unterstuetzung fuer JetBrains-IDEs.
+
+Dieses Projekt verwendet die Svelte-Sprachschicht (Lexer, Parser, PSI, HTML-Einbettung
+und zugehoerige Hervorhebung) des Projekts "svelte-intellij" wieder
+(https://github.com/tomblachut/svelte-intellij), spaeter von JetBrains gepflegt,
+veroeffentlicht unter der MIT-Lizenz, Copyright (c) 2019 Tomasz Błachut. Siehe LICENSE.
+
+Der Quellcode wurde an aktuelle JetBrains-Plattform-Builds (261/2026.1) angepasst.
+Entfernt wurden der gebuendelte Svelte-Sprachserver sowie diverse Randfunktionen des
+Originals (Keyword-Faerbung, Auto-Import beim Einfuegen, Debugger-Integration).

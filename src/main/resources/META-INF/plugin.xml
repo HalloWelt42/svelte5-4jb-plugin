@@ -1,0 +1,123 @@
+<idea-plugin>
+  <id>de.hallowelt.svelte.lang</id>
+  <name>svelte-community</name>
+  <version>0.2.0</version>
+  <vendor email="php-coder@gmx.de" url="https://github.com/HalloWelt42">HalloWelt42</vendor>
+
+  <depends>com.intellij.modules.lang</depends>
+  <depends>com.intellij.modules.xml</depends>
+  <depends>JavaScript</depends>
+  <depends>com.intellij.css</depends>
+  <depends>com.intellij.modules.spellchecker</depends>
+
+  <description><![CDATA[
+    <p>Eigenstaendige Svelte-5-Unterstuetzung fuer JetBrains-IDEs (PhpStorm, WebStorm,
+    IntelliJ IDEA Ultimate, PyCharm Professional): nativer Dateityp mit Hervorhebung,
+    Faltung, Formatierung, Vervollstaendigung und Navigation.</p>
+  ]]></description>
+
+  <actions resource-bundle="messages.SvelteBundle">
+    <action class="dev.blachut.svelte.lang.actions.SvelteCreateComponentAction" id="SvelteCreateComponentAction"
+            icon="icons.SvelteIcons.Desaturated">
+      <add-to-group group-id="NewWebDevelopment" anchor="before" relative-to-action="NewJavaScriptFile"/>
+    </action>
+  </actions>
+
+  <extensions defaultExtensionNs="com.intellij">
+    <fileType name="Svelte" extensions="svelte" language="SvelteHTML"
+              implementationClass="dev.blachut.svelte.lang.SvelteHtmlFileType" fieldName="INSTANCE"/>
+
+    <lang.parserDefinition language="SvelteJS"
+                           implementationClass="dev.blachut.svelte.lang.parsing.js.SvelteJSParserDefinition"/>
+    <lang.parserDefinition language="SvelteTS"
+                           implementationClass="dev.blachut.svelte.lang.parsing.ts.SvelteTypeScriptParserDefinition"/>
+    <lang.parserDefinition language="SvelteHTML"
+                           implementationClass="dev.blachut.svelte.lang.parsing.html.SvelteHTMLParserDefinition"/>
+    <lang.ast.factory language="SvelteHTML"
+                      implementationClass="dev.blachut.svelte.lang.parsing.html.SvelteHtmlASTFactory"/>
+    <stubElementRegistryExtension implementation="dev.blachut.svelte.lang.stubs.SvelteStubRegistryExtension"/>
+    <lang.braceMatcher language="SvelteHTML"
+                       implementationClass="dev.blachut.svelte.lang.editor.SvelteBraceMatcher"/>
+    <lang.syntaxHighlighterFactory language="SvelteHTML"
+                                   implementationClass="dev.blachut.svelte.lang.SvelteSyntaxHighlighterFactory"/>
+    <lang.foldingBuilder language="SvelteHTML"
+                         implementationClass="dev.blachut.svelte.lang.editor.SvelteFoldingBuilder"/>
+    <lang.formatter language="SvelteHTML"
+                    implementationClass="dev.blachut.svelte.lang.format.SvelteFormattingModelBuilder"/>
+    <extendWordSelectionHandler implementation="dev.blachut.svelte.lang.editor.SveltePrimaryBranchSelectioner"/>
+    <extendWordSelectionHandler implementation="dev.blachut.svelte.lang.editor.SvelteSubscribedReferenceSelectioner"/>
+    <basicWordSelectionFilter implementation="dev.blachut.svelte.lang.editor.SvelteSubscribedReferenceSelectionFilter"/>
+    <multiLangCommenter implementation="dev.blachut.svelte.lang.editor.SvelteCommentProvider"/>
+    <typedHandler implementation="dev.blachut.svelte.lang.editor.SvelteTagEndTypedHandler" order="before xmlSlash"/>
+    <typedHandler implementation="dev.blachut.svelte.lang.editor.SvelteBraceTypedHandler"/>
+    <typedHandler implementation="dev.blachut.svelte.lang.editor.SvelteAutoPopupHandler" order="before xmlAuto"/>
+    <backspaceHandlerDelegate implementation="dev.blachut.svelte.lang.editor.SvelteBraceBackspaceHandler"/>
+    <enterHandlerDelegate implementation="dev.blachut.svelte.lang.editor.SvelteEnterHandler"/>
+    <liveTemplateContext contextId="SVELTE_HTML" baseContextId="HTML"
+                         implementation="dev.blachut.svelte.lang.editor.SvelteHtmlContextType"/>
+    <liveTemplateContext contextId="SVELTE_HTML_TEXT" baseContextId="HTML_TEXT"
+                         implementation="dev.blachut.svelte.lang.editor.SvelteHtmlTextContextType"/>
+    <xml.zenCodingGenerator implementation="dev.blachut.svelte.lang.editor.SvelteZenCodingGenerator"/>
+    <xml.xmlSuppressionProvider implementation="dev.blachut.svelte.lang.compatibility.SvelteHtmlInspectionSuppressor"/>
+    <xml.xmlExtension implementation="dev.blachut.svelte.lang.codeInsight.SvelteXmlExtension" order="first"/>
+    <xml.fileNSInfoProvider implementation="dev.blachut.svelte.lang.codeInsight.SvelteNSInfoProvider"/>
+    <xml.elementDescriptorProvider implementation="dev.blachut.svelte.lang.codeInsight.SvelteElementDescriptorProvider"/>
+    <xml.attributeDescriptorsProvider implementation="dev.blachut.svelte.lang.codeInsight.SvelteAttributeDescriptorProvider"/>
+    <html.attributeValueProvider implementation="dev.blachut.svelte.lang.codeInsight.SvelteAttributeValueProvider"/>
+
+    <idIndexer filetype="Svelte" implementationClass="dev.blachut.svelte.lang.index.SvelteIdIndexer"/>
+    <referencesSearch implementation="dev.blachut.svelte.lang.codeInsight.SvelteReferencesSearch" order="first"/>
+    <psi.referenceContributor language="SvelteHTML" implementation="dev.blachut.svelte.lang.codeInsight.SveltePathReferenceContributor"/>
+    <implicitUsageProvider implementation="dev.blachut.svelte.lang.codeInsight.SvelteKitImplicitUsageProvider"/>
+    <implicitUsageProvider implementation="dev.blachut.svelte.lang.codeInsight.SvelteConfigImplicitUsageProvider"/>
+
+    <include.provider implementation="dev.blachut.svelte.lang.index.SvelteFileIncludeProvider"/>
+
+    <completion.contributor language="any"
+                            implementationClass="dev.blachut.svelte.lang.completion.SvelteCompletionContributor"
+                            id="SvelteCompletionContributor"
+                            order="before JSPatternBasedCompletionContributor, before JSCompletionContributor, before xmlNonFirst, before cssClassOrIdReferenceCompletionContributor"/>
+    <xml.tagNameProvider implementation="dev.blachut.svelte.lang.codeInsight.SvelteTagNameProvider"/>
+
+    <localInspection groupKey="svelte.name"
+                     shortName="SvelteUnresolvedComponent"
+                     language="SvelteHTML"
+                     bundle="messages.SvelteBundle"
+                     enabledByDefault="true" level="ERROR"
+                     implementationClass="dev.blachut.svelte.lang.inspections.SvelteUnresolvedComponentInspection"
+                     key="svelte.inspection.unresolved.component.display.name"/>
+    <css.embeddedCssProvider implementation="dev.blachut.svelte.lang.css.SvelteEmbeddedCssProvider"/>
+    <css.inclusionContext implementation="dev.blachut.svelte.lang.css.SvelteCssInclusionContext"/>
+    <css.classOrIdUsagesProvider implementation="dev.blachut.svelte.lang.codeInsight.SvelteCssUsagesProvider"/>
+    <highlightErrorFilter implementation="dev.blachut.svelte.lang.css.SvelteCssExpressionErrorFilter"/>
+    <spellchecker.bundledDictionaryProvider
+      implementation="dev.blachut.svelte.lang.spellchecker.SvelteSpellcheckingDictionaryProvider"/>
+    <html.embeddedContentSupport implementation="dev.blachut.svelte.lang.parsing.html.SvelteHtmlEmbeddedContentSupport"/>
+    <breadcrumbsInfoProvider implementation="dev.blachut.svelte.lang.codeInsight.SvelteBreadcrumbsProvider"/>
+    <lang.documentationProvider language="SvelteJS" implementationClass="dev.blachut.svelte.lang.editor.SvelteJSDocumentationProvider"/>
+    <polySymbols.webTypes source="web-types/svelte@3.0.0.web-types.json" enableByDefault="true"/>
+    <codeInsight.codeVisionSettingsPreviewLanguage language="SvelteHTML" modelId="component.usage"/>
+  </extensions>
+  <extensions defaultExtensionNs="JavaScript">
+    <elementScopeProvider implementation="dev.blachut.svelte.lang.parsing.html.SvelteElementResolveScopeProvider"/>
+    <importCandidatesFactory implementation="dev.blachut.svelte.lang.codeInsight.SvelteComponentCandidatesProvider$Factory"/>
+    <completionPlaceFilter implementation="dev.blachut.svelte.lang.codeInsight.SvelteHtmlTagCompletionPlaceFilterProvider"/>
+    <importModulePathStrategy order="after TypeScript"
+                              implementation="dev.blachut.svelte.lang.codeInsight.SvelteImportModulePathStrategy"/>
+    <handlersFactory language="SvelteHTML" implementationClass="dev.blachut.svelte.lang.SvelteHtmlHandlersFactory"/>
+    <handlersFactory language="SvelteJS" implementationClass="dev.blachut.svelte.lang.SvelteJSHandlersFactory"/>
+    <handlersFactory language="SvelteTS" implementationClass="dev.blachut.svelte.lang.SvelteTSHandlersFactory"/>
+    <dialectSpecificHandlersFactory language="SvelteHTML"
+                                    implementationClass="dev.blachut.svelte.lang.SvelteJSSpecificHandlersFactory"/>
+    <dialectSpecificHandlersFactory language="SvelteJS"
+                                    implementationClass="dev.blachut.svelte.lang.SvelteJSSpecificHandlersFactory"/>
+    <dialectSpecificHandlersFactory language="SvelteTS"
+                                    implementationClass="dev.blachut.svelte.lang.SvelteTypeScriptSpecificHandlersFactory"/>
+    <moduleReferenceContributor implementation="dev.blachut.svelte.lang.codeInsight.SvelteKitModuleReferenceContributor"/>
+    <moduleExportsProvider id="svelte" implementation="dev.blachut.svelte.lang.codeInsight.SvelteModuleExportsProvider"/>
+    <frameworkIndexingHandler implementation="dev.blachut.svelte.lang.SvelteFrameworkHandler" version="1"/>
+    <indexedFileTypeProvider implementation="dev.blachut.svelte.lang.SvelteIndexedFileTypeProvider"/>
+    <tsImportResolver implementation="dev.blachut.svelte.lang.codeInsight.SvelteTypeScriptImportsResolverProvider"/>
+    <componentUsageProvider language="SvelteHTML" implementationClass="dev.blachut.svelte.lang.codeInsight.SvelteComponentUsageProvider"/>
+  </extensions>
+</idea-plugin>
