@@ -1,0 +1,11 @@
+{
+  "name": "svelte-lsp-bundle",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Vendored Svelte Language Server bundled into the IDE plugin distribution.",
+  "license": "MIT",
+  "dependencies": {
+    "svelte-language-server": "0.18.3",
+    "typescript": "5.9.3"
+  }
+}

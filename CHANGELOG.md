@@ -1,5 +1,9 @@
 # Changelog
 
+## [0.3.0]
+- Svelte-spezifische Typpruefung und Diagnostik ueber den mitgelieferten
+  Svelte-Sprachserver (svelte2tsx), zusaetzlich zur nativen Anzeige. Braucht Node.js.
+
 ## [0.2.0]
 - Native Svelte-Sprachschicht: eigener `{...}`-bewusster Lexer, HTML-basierter Parser,
   PSI und Einbettung fuer `<script lang="ts">` und `<style>`. Gueltiger Svelte-5-Code

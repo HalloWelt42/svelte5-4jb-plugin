@@ -1,7 +1,7 @@
 <idea-plugin>
   <id>de.hallowelt.svelte.lang</id>
   <name>svelte-community</name>
-  <version>0.2.0</version>
+  <version>0.3.0</version>
   <vendor email="php-coder@gmx.de" url="https://github.com/HalloWelt42">HalloWelt42</vendor>
 
   <depends>com.intellij.modules.lang</depends>
@@ -9,6 +9,7 @@
   <depends>JavaScript</depends>
   <depends>com.intellij.css</depends>
   <depends>com.intellij.modules.spellchecker</depends>
+  <depends>com.intellij.modules.lsp</depends>
 
   <description><![CDATA[
     <p>Eigenstaendige Svelte-5-Unterstuetzung fuer JetBrains-IDEs (PhpStorm, WebStorm,
@@ -97,6 +98,9 @@
     <lang.documentationProvider language="SvelteJS" implementationClass="dev.blachut.svelte.lang.editor.SvelteJSDocumentationProvider"/>
     <polySymbols.webTypes source="web-types/svelte@3.0.0.web-types.json" enableByDefault="true"/>
     <codeInsight.codeVisionSettingsPreviewLanguage language="SvelteHTML" modelId="component.usage"/>
+
+    <!-- Svelte-spezifische Typpruefung/Diagnostik ueber den mitgelieferten Sprachserver -->
+    <platform.lsp.integrationProvider implementation="de.hallowelt.svelte.lsp.SvelteLspIntegrationProvider"/>
   </extensions>
   <extensions defaultExtensionNs="JavaScript">
     <elementScopeProvider implementation="dev.blachut.svelte.lang.parsing.html.SvelteElementResolveScopeProvider"/>

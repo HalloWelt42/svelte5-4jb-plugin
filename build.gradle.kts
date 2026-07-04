@@ -66,3 +66,12 @@ tasks.runIde {
         argumentProviders.add(CommandLineArgumentProvider { listOf(openProject.get()) })
     }
 }
+
+// Ship the vendored Svelte Language Server (Node) as loose files inside the plugin,
+// so the LSP client can launch it for svelte2tsx-based type checking.
+// Reproducible from language-server/package.json + package-lock.json via `npm ci`.
+tasks.named<org.jetbrains.intellij.platform.gradle.tasks.PrepareSandboxTask>("prepareSandbox") {
+    from(layout.projectDirectory.dir("language-server/node_modules")) {
+        into("${rootProject.name}/language-server/node_modules")
+    }
+}
